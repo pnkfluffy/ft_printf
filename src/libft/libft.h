@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:24:48 by jfelty            #+#    #+#             */
-/*   Updated: 2019/08/05 11:14:29 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/09/23 13:58:41 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+/*
+**	# include <fcntl.h>	neccessary for gnl?
+*/
 
 typedef struct		s_list
 {
@@ -86,5 +90,11 @@ int					ft_wordcount(char const *s, char c);
 int					ft_numlength(int n);
 int					ft_lstsize(t_list *begin_list);
 void				ft_sortinttab(int *tab, unsigned int size);
+int					ft_gnl(char **str, char **line, int fd);
+int					get_next_line(int const fd, char **line);
+int					ft_strnchr(const char *str, int c);
+char				*replacechr(char *s, char old, char new);
+int					ft_getnxtnbr(char *str, char c);
+int					ft_atoi_base(const char *str, int str_base);
 
 #endif
