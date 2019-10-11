@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:54:20 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/04 19:11:10 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/11 13:17:29 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ typedef struct		s_print
 {
 	const char		*str;
 	int				ret;
-	struct s_format	*args;	
+	struct s_format	*fmts;	
 }					t_print;
 
 typedef struct		s_format
-{
+{		
 	char			*retstr;
 	char			*fmt;
 	char			type;
@@ -38,8 +38,8 @@ typedef struct		s_format
 	int				has_precision;
 	int				width;
 	int				precision;
-	struct s_flag	*flag;	
-	struct s_format	*next;	
+	struct s_flag	*flag;
+	struct s_format	*next;
 }					t_format;
 
 typedef struct		s_flag
@@ -48,9 +48,35 @@ typedef struct		s_flag
 	int				plus;
 	int				space;
 	int				zero;
-	char			pound;
+	int				pound;
 }					t_flag;
 
-int	ft_printf(const char *str, ...);
+typedef int			jump_function(t_format *format, va_list args);
+
+/*
+**	ft_printf.c
+*/
+
+t_print				*initialize(const char *str);
+int					ft_printf(const char *str, ...);
+void				print_params(t_format *curr);
+
+/*
+**	populate.c
+*/
+
+int					print_c(t_format *format, va_list args);
+int					print_s(t_format *format, va_list args);
+int					print_i(t_format *format, va_list args);
+
+/*
+**	populate.c
+*/
+
+int					populate_flags(t_format *curr, char *fmt);
+void				initialize_values(t_format *curr);
+void				populate_format(t_format *curr, char *fmt);
+t_format			*fill_format(t_format *head, char *fmt);
+int					get_format(char *str, char **fmt);
 
 #endif

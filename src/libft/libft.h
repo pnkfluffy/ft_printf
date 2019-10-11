@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:24:48 by jfelty            #+#    #+#             */
-/*   Updated: 2019/09/23 13:58:41 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/11 13:18:49 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ int					ft_strnchr(const char *str, int c);
 char				*replacechr(char *s, char old, char new);
 int					ft_getnxtnbr(char *str, char c);
 int					ft_atoi_base(const char *str, int str_base);
+char				*ft_fillstrnew(int width, char fill);
 
 #endif

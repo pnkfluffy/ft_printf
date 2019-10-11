@@ -6,7 +6,7 @@
 #    By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 15:25:27 by jfelty            #+#    #+#              #
-#    Updated: 2019/09/23 13:58:11 by jfelty           ###   ########.fr        #
+#    Updated: 2019/10/11 13:19:15 by jfelty           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,8 @@ SRC =	ft_strlen.c \
 		ft_strnchr.c \
 		ft_replacechr.c \
 		ft_getnxtnbr.c \
-		ft_atoi_base.c
+		ft_atoi_base.c \
+		ft_fillstrnew.c
 #all source files
 
 OBJ = $(SRC:.c=.o)

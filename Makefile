@@ -6,7 +6,7 @@
 #    By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/14 10:38:32 by jfelty            #+#    #+#              #
-#    Updated: 2019/10/04 17:17:40 by jfelty           ###   ########.fr        #
+#    Updated: 2019/10/10 15:14:14 by jfelty           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,13 @@ NAME = libftprintf.a
 
 CC = @gcc
 
+#REMOVE BEFORE SUBMISSION -------------------------------------
 BUG = -g -fsanitize=address
 
 CFLAGS = -Wall -Wextra -Werror -I.
 
-SRC = ft_printf.c
+SRC =	ft_printf.c \
+		populate.c
 
 OBJ = $(SRC.c=.o)
 
