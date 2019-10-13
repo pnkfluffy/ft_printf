@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:54:20 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/11 13:17:29 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/12 18:16:40 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_format
 	int				has_precision;
 	int				width;
 	int				precision;
+	int				lmod;
 	struct s_flag	*flag;
 	struct s_format	*next;
 }					t_format;
@@ -62,12 +63,26 @@ int					ft_printf(const char *str, ...);
 void				print_params(t_format *curr);
 
 /*
-**	populate.c
+**	format_help.c
 */
 
-int					print_c(t_format *format, va_list args);
-int					print_s(t_format *format, va_list args);
-int					print_i(t_format *format, va_list args);
+char				*join_padding(char *str, char *padding, int ljustify);
+int64_t				get_arg_signed(int lmod, va_list args);
+uint64_t			get_arg_unsigned(int lmod, va_list args);
+
+/*
+**	format_csp.c
+*/
+
+int					format_c(t_format *format, va_list args);
+int					format_s(t_format *format, va_list args);
+int					format_p(t_format *format, va_list args);
+
+/*
+**	format_diou.c
+*/
+
+int					format_d(t_format *format, va_list args);
 
 /*
 **	populate.c

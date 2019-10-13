@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:24:48 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/11 13:18:49 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/12 14:08:13 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,8 @@ char				*replacechr(char *s, char old, char new);
 int					ft_getnxtnbr(char *str, char c);
 int					ft_atoi_base(const char *str, int str_base);
 char				*ft_fillstrnew(int width, char fill);
-
+char				*ft_itoa_base(int n, int base, int return_upper);
+int					ft_power(int nb, int power);
+char				*ft_strrev(char *str);
+char				*ft_ll_itoa_base(uint64_t n, int base, int return_upper);
 #endif

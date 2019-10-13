@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:01:42 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/09 12:11:13 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/12 19:01:37 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,41 @@ void			initialize_values(t_format *curr)
 	curr->has_precision = -1;
 	curr->width = -1;
 	curr->precision = -1;
+	curr->lmod = 0;
 	curr->flag->minus = 0;
 	curr->flag->plus = 0;
 	curr->flag->zero = 0;
 	curr->flag->space = 0;
 	curr->flag->pound = 0;
 	curr->next = NULL;
+}
+
+int				populate_lenmod(t_format *curr, char *fmt)
+{
+	int i;
+
+	i = 0;
+	if (fmt[0] == 'h' && fmt[1] == 'h')
+	{
+		curr->lmod = 1;
+		i = 2;
+	}
+	else if (fmt[0] == 'l' && fmt[1] == 'l')
+	{
+		curr->lmod = 4;
+		i = 2;
+	}
+	else if (fmt[0] == 'h' || fmt[0] == 'l' || fmt[0] == 'L')
+	{
+		i = 1;
+		if (fmt[0] == 'h')
+			curr->lmod = 2;
+		else if (fmt[0] == 'l')
+			curr->lmod = 3;
+		else if (fmt[0] == 'L')
+			curr->lmod = 5;
+	}
+	return (i);
 }
 
 void			populate_format(t_format *curr, char *fmt)
@@ -65,12 +94,11 @@ void			populate_format(t_format *curr, char *fmt)
 	curr->has_precision = (fmt[i] == '.') ? 1 : 0;
 	if (curr->has_precision)
 	{
-		while (fmt[++i] == '0')
-			curr->has_precision *= 10;
-		curr->precision = ft_atoi(&fmt[i]);
+		curr->precision = ft_isdigit(fmt[i]) ? ft_atoi(&fmt[i]) : 0;
 		while (ft_isdigit(fmt[i]))
 			i++;
 	}
+	i += populate_lenmod(curr, &fmt[i]);
 	curr->type = fmt[i];
 }
 

@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   format_diou.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/23 14:43:52 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/11 13:54:30 by jfelty           ###   ########.fr       */
+/*   Created: 2019/10/12 17:55:53 by jfelty            #+#    #+#             */
+/*   Updated: 2019/10/12 19:08:12 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strdup(const char *src)
+int			format_d(t_format *format, va_list args)
 {
-	int		i;
-	char	*str;
+	int64_t	num;
+	char	*ret;
 
-	i = -1;
-	if (!src)
-		return (NULL);
-	if (!(str = (char*)malloc(sizeof(char) * (ft_strlen(src) + 1))))
-		return (NULL);
-	while (src[++i])
-		str[i] = src[i];
-	str[i] = '\0';
-	return (str);
+	num = get_arg_signed(format->lmod, args);
+
+
+
+	return (0);
 }
