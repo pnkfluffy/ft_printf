@@ -6,7 +6,7 @@
 #    By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/14 10:38:32 by jfelty            #+#    #+#              #
-#    Updated: 2019/10/12 15:49:28 by jfelty           ###   ########.fr        #
+#    Updated: 2019/10/13 17:42:05 by jfelty           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC =	ft_printf.c \
 		populate.c \
 		format_help.c \
 		format_csp.c \
-		format_len.c
+		format_diou.c
 
 OBJ = $(SRC.c=.o)
 

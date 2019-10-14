@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 10:39:02 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/12 19:05:37 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:26:28 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		dispatch(t_print *print, va_list args)
 	t_format	*format;
 	int			choice;
 
-	jump_function	*jump_to[3] = {
+	jump_function	*jump_to[4] = {
 		format_c,
 		format_s,
 		format_p,
@@ -115,7 +115,7 @@ int			ft_printf(const char *str, ...)
 		printf("Error, %c is not a conversion type!\n", ret);
 		return (-1);
 	}
-	print_params(print->fmts);
+	// print_params(print->fmts);
 
 	print_out(print);
 //	ret = ft_vfprintf(stdout, str, args);
@@ -125,16 +125,8 @@ int			ft_printf(const char *str, ...)
 
 int	main()
 {
-//	char *s = "hello";
-	int a = 89;
-	//int *ptr = &a;
-	// ft_printf("'%2.5s'", s);
-	// ft_printf("'%4.2s'", s);
-	// ft_printf("'%-2.1s'", s);
-	// ft_printf("'%1.2s'", s);
-	// ft_printf("hi%shi\n", NULL);
-
-	ft_printf("%-#d3%ello\n%c\n", a);
+	int i = 100;
+	// ft_printf("%-#d3%ello\n%c\n", a);
 	
 	// ft_printf("'%5p'\n", ptr);
 	// printf("'%5p'\n", ptr);
@@ -142,6 +134,20 @@ int	main()
 	// printf("%u\n", (unsigned int)&s);
 	// printf("%s\n", ft_ul_itoa_base((unsigned int)&s, 16, 0));
 	// printf("%p\n", &s);
-	
+
+	ft_printf("1: '%i'\n", i);
+	ft_printf("2: '%1.5i'\n", i);
+	ft_printf("3: '%-+10.5i'\n", i);
+	//adds plus sign
+	ft_printf("4: '% -10.5i'\n", i);
+	ft_printf("5: '% -10.4i'\n", -i);
+	//space does not override - + sign if they are declared
+	ft_printf("6: '%05i'\n", i);
+	//0 padds with 0's
+	ft_printf("7: '%05.4i'\n", i);
+	//but only up to precision amount
+	ft_printf("8: '%-05i'\n", i);
+	//and not when left justified
+
 	return (0);
 }

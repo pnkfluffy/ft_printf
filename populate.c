@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:01:42 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/12 19:01:37 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/13 18:02:55 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void			populate_format(t_format *curr, char *fmt)
 	curr->has_precision = (fmt[i] == '.') ? 1 : 0;
 	if (curr->has_precision)
 	{
-		curr->precision = ft_isdigit(fmt[i]) ? ft_atoi(&fmt[i]) : 0;
+		curr->precision = ft_isdigit(fmt[++i]) ? ft_atoi(&fmt[i]) : 0;
 		while (ft_isdigit(fmt[i]))
 			i++;
 	}

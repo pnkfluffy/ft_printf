@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 13:18:21 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/11 13:18:29 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/13 17:53:46 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_fillstrnew(int width, char fill)
 	char	*str;
 	int		i;
 
+	if (width < 1)
+		return (ft_strnew(0));
 	i = -1;
 	str = ft_strnew(width + 1);
 	while (++i < width)

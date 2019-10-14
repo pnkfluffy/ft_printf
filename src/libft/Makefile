@@ -6,7 +6,7 @@
 #    By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 15:25:27 by jfelty            #+#    #+#              #
-#    Updated: 2019/10/12 14:07:54 by jfelty           ###   ########.fr        #
+#    Updated: 2019/10/13 17:01:21 by jfelty           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ SRC =	ft_strlen.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
-		ft_numlength.c \
+		ft_numlen.c \
 		ft_itoa.c \
 		ft_strsplit.c \
 		ft_wordcount.c \

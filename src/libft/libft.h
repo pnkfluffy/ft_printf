@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:24:48 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/12 14:08:13 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/13 17:01:18 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_isspace(char c);
 int					ft_wordcount(char const *s, char c);
-int					ft_numlength(int n);
+int					ft_numlen(int n);
 int					ft_lstsize(t_list *begin_list);
 void				ft_sortinttab(int *tab, unsigned int size);
 int					ft_gnl(char **str, char **line, int fd);
