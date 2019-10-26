@@ -6,7 +6,7 @@
 #    By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 15:25:27 by jfelty            #+#    #+#              #
-#    Updated: 2019/10/13 17:01:21 by jfelty           ###   ########.fr        #
+#    Updated: 2019/10/25 14:21:46 by jfelty           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,12 @@ SRC =	ft_strlen.c \
 		ft_itoa_base.c \
 		ft_power.c \
 		ft_strrev.c \
-		ft_ll_itoa_base.c
+		ft_ll_itoa_base.c \
+		ft_push_to_str_front.c \
+		ft_makepos.c \
+		ft_isneg.c \
+		ft_largest_int.c
+		
 #all source files
 
 OBJ = $(SRC:.c=.o)

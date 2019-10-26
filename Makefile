@@ -6,16 +6,11 @@
 #    By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/14 10:38:32 by jfelty            #+#    #+#              #
-#    Updated: 2019/10/13 17:42:05 by jfelty           ###   ########.fr        #
+#    Updated: 2019/10/25 17:51:19 by jfelty           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-
-CC = @gcc
-
-#REMOVE BEFORE SUBMISSION -------------------------------------
-BUG = -g -fsanitize=address
 
 CFLAGS = -Wall -Wextra -Werror -I.
 
@@ -25,29 +20,28 @@ SRC =	ft_printf.c \
 		format_csp.c \
 		format_diou.c
 
-OBJ = $(SRC.c=.o)
+OBJ = $(SRC:.c=.o)
 
-FT_LIB = $(addprefix ./src/libft/libft.a)
+OB = ./*.o
 
-FT_LIB_OB = $(addprefix $(src/libft/*.o))
+FT_LIB = ./src/libft/libft.a
+
+FT_LIB_OB = ./src/libft/*.o
 
 all: $(NAME)
 
-$(NAME): lib out
+$(NAME): $(OBJ) lib 
+	ar rc $(NAME) $(OB) $(FT_LIB_OB)
+	ranlib $(NAME)
 
 lib:
 	make -C src/libft/
-	make -C src/libft/ clean
-# -C flag changes file location, so make is run in the libft directory
 
 #pflib:
 #	@ar rc $(NAME) $(OBJ)
 #	@ranlib $(NAME)
 #	@echo "libftprintf.a created"
 #	https://github.com/SLO42/ft_printf/blob/master/ft_printf_v2/Makefile
-
-out:
-	$(CC) $(BUG) $(CFLAGS) $(SRC) src/libft/libft.a -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

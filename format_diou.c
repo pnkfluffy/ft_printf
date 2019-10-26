@@ -6,69 +6,11 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 17:55:53 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/13 18:34:55 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/25 18:59:53 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-
-
-int			ft_largest_int(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-int			ft_isneg(int a)
-{
-	if (a < 0)
-		return (1);
-	return (0);
-}
-
-int			ft_positive(int a)
-{
-	if (a < 0)
-		return (-a);
-	return (a);
-}
-
-int			has_lead(t_format *format, int num)
-{
-	if (format->flag->plus || format->flag->space || ft_isneg(num))
-		return (1);
-	return (0);
-}
-
-char		*get_lead(t_flag *flag, int num)
-{
-	if (flag->plus)
-		return (ft_isneg(num) ? "-" : "+");
-	else if (ft_isneg(num))
-		return ("-");
-	else
-		return (" ");
-}
-
-char		*push_to_str_front(char *str, char c)
-{
-	char	*ret;
-	int		i;
-
-	i = 0;
-	ret = ft_memalloc(sizeof(char) * (ft_strlen(str) + 2));
-	ret[i] = c;
-	while (str[i])
-	{
-		ret[i + 1] = str[i];
-		i++;
-	}
-	ret[i + 1] = '\0';
-	free(str);
-	return (ret);
-}
 
 char		get_pad(t_format *format, char *ret)
 {
@@ -77,25 +19,82 @@ char		get_pad(t_format *format, char *ret)
 	return (' ');
 }
 
-int			format_d(t_format *format, va_list args)
+int			format_di(t_format *format, va_list args)
 {
 	int		num;
 	char	*ret;
 	char	*padding;
 	int		charwidth;
 
+	format->flag->pound = 0;
 	num = (int)get_arg_signed(format->lmod, args);
-	ret = ft_itoa(ft_positive(num));
+	ret = num != INTMIN ? ft_itoa(ft_makepos(num)) : ft_strdup("2147483648");
+	charwidth = ft_largest_int(format->precision + has_lead(format, num), ft_strlen(ret));
+	padding = ft_fillstrnew(format->width - charwidth, get_pad(format, ret));
+	while ((int)ft_strlen(ret) < charwidth && (int)ft_strlen(ret) < format->precision)
+		ret = ft_push_to_str_front(ret, '0');
+	if (has_lead(format, num))
+		format->retstr = join_padding(ft_strjoin(get_lead(format, num), ret), padding, format->flag->minus);
+	else
+		format->retstr = join_padding(ret, padding, format->flag->minus);
+	return (0);
+}
+
+int			format_o(t_format *format, va_list args)
+{
+	uint64_t	num;
+	char		*ret;
+	char		*padding;
+	int			charwidth;
+
+	format->flag->plus = 0;
+	format->flag->space = 0;
+	num = get_arg_unsigned(format->lmod, args);
+	ret = ft_ll_itoa_base(num, 8, 0);
 	charwidth = ft_largest_int(format->precision + has_lead(format, num), ft_strlen(ret));
 	padding = ft_fillstrnew(format->width - charwidth - has_lead(format, num), get_pad(format, ret));
-	// padding = ft_fillstrnew(format->width - charwidth - has_lead(format, num), ' ');
-	while ((int)ft_strlen(ret) < charwidth - has_lead(format, num))
-		ret = push_to_str_front(ret, '0');
+	if (has_lead(format, 1))
+		format->retstr = join_padding(ft_strjoin(get_lead(format, num), ret), padding, format->flag->minus);
+	else
+		format->retstr = join_padding(ret, padding, format->flag->minus);
+	return (0);
+}
+
+int			format_u(t_format *format, va_list args)
+{
+	uint32_t		num;
+	char			*ret;
+	char			*padding;
+	int				charwidth;
+
+	format->flag->plus = 0;
+	format->flag->space = 0;
+	format->flag->pound = 0;
+	num = (uint32_t)get_arg_signed(format->lmod, args);
+	ret = ft_ll_itoa_base(num, 10, 0);
+	charwidth = ft_largest_int(format->precision, ft_strlen(ret));
+	padding = ft_fillstrnew(format->width - charwidth, get_pad(format, ret));
+	while ((int)ft_strlen(ret) < charwidth && (int)ft_strlen(ret) < format->precision)
+		ret = ft_push_to_str_front(ret, '0');
+	format->retstr = join_padding(ret, padding, format->flag->minus);
+	return (0);
+}
+
+int			format_xX(t_format *format, va_list args)
+{
+	uint64_t	num;
+	char		*ret;
+	char		*padding;
+	int			charwidth;
+
+	format->flag->plus = 0;
+	format->flag->space = 0;
+	num = get_arg_unsigned(format->lmod, args);
+	ret = ft_ll_itoa_base(num, 16, (format->type == 'x') ? 0 : 1);
+	charwidth = ft_largest_int(format->precision + has_lead(format, num), ft_strlen(ret));
+	padding = ft_fillstrnew(format->width - charwidth - has_lead(format, num), get_pad(format, ret));
 	if (has_lead(format, num))
-	{
-	//	charwidth++;	not necessary?
-		format->retstr = ft_strjoin(get_lead(format->flag, num), join_padding(ret, padding, format->flag->minus));
-	}
+		format->retstr = join_padding(ft_strjoin(get_lead(format, num), ret), padding, format->flag->minus);
 	else
 		format->retstr = join_padding(ret, padding, format->flag->minus);
 	return (0);

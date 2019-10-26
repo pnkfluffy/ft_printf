@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 15:02:08 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/13 17:45:46 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/25 18:56:55 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,38 @@ uint64_t		get_arg_unsigned(int lmod, va_list args)
 	else if (lmod == 3 || lmod == 4)
 		num = va_arg(args, uint64_t);
 	return (num);
+}
+
+int			has_lead(t_format *format, int64_t num)
+{
+	if (format->flag->pound)
+	{
+		if (format->type == 'o')
+			return (1);
+		else if ((format->type == 'x' || format->type == 'X') && num != 0)
+			return (2);
+	}
+	else if (format->flag->plus || format->flag->space || ft_isneg(num))
+		return (1);
+	return (0);
+}
+
+char		*get_lead(t_format *format, int num)
+{
+	if (format->flag->pound)
+	{
+		if (format->type == 'o')
+			return ("0");
+		else if (format->type == 'x' && num != 0)
+			return ("0x");
+		else if (format->type == 'X' && num != 0)
+			return ("0X");
+	}
+	else if (format->flag->plus)
+		return (ft_isneg(num) ? "-" : "+");
+	else if (ft_isneg(num))
+		return ("-");
+	else if (format->flag->space)
+		return (" ");
+	return ("ERROR");
 }

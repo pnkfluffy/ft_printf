@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:01:42 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/13 18:02:55 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/25 15:04:45 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				populate_flags(t_format *curr, char *fmt)
 		else if (fmt[i] == ' ')
 			curr->flag->space = 1;
 		else if (fmt[i] == '#')
-			curr->flag->pound = fmt[++i];
+			curr->flag->pound = 1;
 	}
 	return (i);
 }
@@ -132,11 +132,7 @@ int				get_format(char *str, char **fmt)
 
 	end = str;
 	while (!(ft_strchr(CONV, *end)))
-	{
-		if (*end == '#')
-			end++;
 		end++;
-	}
 	end++;
 	*fmt = ft_strnew(end - str);
 	ft_strncpy(*fmt, str, end - str);

@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:54:20 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/12 18:16:40 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/25 17:57:23 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define CONV "cspdiouxXf%"
 # define FLAG "-0+ #"
+# define INTMIN -2147483648
 
 typedef struct		s_print
 {
@@ -58,9 +59,8 @@ typedef int			jump_function(t_format *format, va_list args);
 **	ft_printf.c
 */
 
-t_print				*initialize(const char *str);
 int					ft_printf(const char *str, ...);
-void				print_params(t_format *curr);
+t_print				*initialize(const char *str);
 
 /*
 **	format_help.c
@@ -69,6 +69,8 @@ void				print_params(t_format *curr);
 char				*join_padding(char *str, char *padding, int ljustify);
 int64_t				get_arg_signed(int lmod, va_list args);
 uint64_t			get_arg_unsigned(int lmod, va_list args);
+int					has_lead(t_format *format, int64_t num);
+char				*get_lead(t_format *format, int num);
 
 /*
 **	format_csp.c
@@ -82,7 +84,11 @@ int					format_p(t_format *format, va_list args);
 **	format_diou.c
 */
 
-int					format_d(t_format *format, va_list args);
+int					format_di(t_format *format, va_list args);
+int					format_o(t_format *format, va_list args);
+int					format_u(t_format *format, va_list args);
+int					format_xX(t_format *format, va_list args);
+
 
 /*
 **	populate.c
