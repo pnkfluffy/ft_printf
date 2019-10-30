@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:54:20 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/25 17:57:23 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/29 17:05:53 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char				*get_lead(t_format *format, int num);
 **	format_csp.c
 */
 
+int					null_check(t_format *format);
 int					format_c(t_format *format, va_list args);
 int					format_s(t_format *format, va_list args);
 int					format_p(t_format *format, va_list args);
@@ -84,6 +85,7 @@ int					format_p(t_format *format, va_list args);
 **	format_diou.c
 */
 
+char				get_pad(t_format *format, char *ret);
 int					format_di(t_format *format, va_list args);
 int					format_o(t_format *format, va_list args);
 int					format_u(t_format *format, va_list args);

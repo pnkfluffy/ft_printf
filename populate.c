@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:01:42 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/25 15:04:45 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/29 18:59:44 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int				populate_lenmod(t_format *curr, char *fmt)
 		else if (fmt[0] == 'L')
 			curr->lmod = 5;
 	}
+	else
+		curr->lmod = 0;
 	return (i);
 }
 

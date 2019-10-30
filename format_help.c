@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 15:02:08 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/25 18:56:55 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/29 19:20:09 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int64_t		get_arg_signed(int lmod, va_list args)
 
 	num = 0;
 	if (lmod == 0)
-		num = va_arg(args, int32_t);
+		num = (int)va_arg(args, int);
 	else if (lmod == 1)
 		num = (int8_t)va_arg(args, int);
 	else if (lmod == 2)
 		num = (int16_t)va_arg(args, int);
 	else if (lmod == 3 || lmod == 4)
-		num = va_arg(args, int64_t);
+		num = (int64_t)va_arg(args, int64_t);
 	return (num);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 10:39:02 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/25 18:38:30 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/29 17:05:19 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		print_out(t_print *print)
 		else
 		{
 			ft_putstr(curr_fmt->retstr);
-			ret += ft_strlen(curr_fmt->retstr);
+			ret += ft_strlen(curr_fmt->retstr) - null_check(curr_fmt);
 			print->str += ft_strlen(curr_fmt->fmt);
 			curr_fmt = curr_fmt->next;
 		}
@@ -139,26 +139,3 @@ int			ft_printf(const char *str, ...)
 	va_end(args);
 	return (ret);
 }
-
-// int	main()
-// {
-// 	int i = 100000;
-// 	ft_printf("1: '%#X'\n", i);
-// 	ft_printf("2: '%#1.5X'\n", i);
-// 	ft_printf("3: '%#-+10.5X'\n", i);
-// 	//adds plus sign
-// 	ft_printf("4: '% -10.5x'\n", i);
-// 	ft_printf("5: '% -10.4x'\n", -i);
-// 	//space does not override - + sign if they are declared
-// 	ft_printf("6: '%05x'\n", i);
-// 	//0 padds with 0's
-// 	ft_printf("7: '%05.4x'\n", i);
-// 	//but only up to precision amount
-// 	ft_printf("8: '%-05x'\n", i);
-// 	//and not when left justified
-
-// //PRINTS  OUT DOUBLE NEGATIVE SIGN WHEN PASSED MIN INT VALUE3
-
-
-// 	return (0);
-// }

@@ -6,11 +6,28 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 13:09:09 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/13 17:06:47 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/29 17:12:23 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int		null_check(t_format *format)
+{
+	int i;
+
+	i = 0;
+	if (format->type == 'c')
+	{
+		while (format->retstr[i] && format->retstr[i + 1])
+		{
+			if (format->retstr[i] == '^' && format->retstr[i + 1] == '@')
+				return (1);
+			i++;
+		}
+	}
+	return (0);
+}
 
 int		format_c(t_format *format, va_list args)
 {
@@ -19,7 +36,14 @@ int		format_c(t_format *format, va_list args)
 
 	c = NULL;
 	if (format->type != '%')
+	{
 		c = ft_fillstrnew(1, va_arg(args, int));
+		if (ft_strlen(c) == 0)
+		{
+			ft_strdel(&c);
+			c = ft_strdup("^@");
+		}
+	}
 	else
 		c = ft_fillstrnew(1, '%');
 	if (!(format->has_width))
