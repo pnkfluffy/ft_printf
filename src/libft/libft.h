@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 15:24:48 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/29 18:29:44 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/30 17:31:25 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ char				*ft_fillstrnew(int width, char fill);
 char				*ft_itoa_base(int n, int base, int return_upper);
 int					ft_power(int nb, int power);
 char				*ft_strrev(char *str);
-char				*ft_ll_itoa_base(uint64_t n, int base, int return_upper);
+char				*ft_ll_itoa_base(int64_t n, int base, int return_upper);
+char				*ft_ull_itoa_base(uint64_t n, int base, int return_upper);
 char				*ft_push_to_str_front(char *str, char c);
-int					ft_makepos(int64_t a);
+int64_t				ft_makepos(int64_t a);
 int					ft_largest_int(int a, int b);
 int					ft_isneg(int64_t a);
 #endif

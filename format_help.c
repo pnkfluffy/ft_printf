@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 15:02:08 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/29 19:20:09 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/30 18:24:40 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			has_lead(t_format *format, int64_t num)
 	return (0);
 }
 
-char		*get_lead(t_format *format, int num)
+char		*get_lead(t_format *format, int64_t num)
 {
 	if (format->flag->pound)
 	{

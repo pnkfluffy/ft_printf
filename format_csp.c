@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 13:09:09 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/29 17:12:23 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/30 17:18:37 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int		format_p(t_format *format, va_list args)
 	char 		*padding;
 
 	long_address = va_arg(args, uint64_t);
-	p = ft_strjoin("0x", ft_ll_itoa_base(long_address, 16, 0));
+	p = ft_strjoin("0x", ft_ull_itoa_base(long_address, 16, 0));
 	if (!(format->has_width) || format->width < (int)ft_strlen(p))
 		format->width = ft_strlen(p);
 	padding = ft_fillstrnew(format->width - ft_strlen(p), ' ');

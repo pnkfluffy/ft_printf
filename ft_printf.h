@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 17:54:20 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/29 17:05:53 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/30 18:25:22 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char				*join_padding(char *str, char *padding, int ljustify);
 int64_t				get_arg_signed(int lmod, va_list args);
 uint64_t			get_arg_unsigned(int lmod, va_list args);
 int					has_lead(t_format *format, int64_t num);
-char				*get_lead(t_format *format, int num);
+char				*get_lead(t_format *format, int64_t num);
 
 /*
 **	format_csp.c

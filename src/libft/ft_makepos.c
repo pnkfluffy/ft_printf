@@ -6,13 +6,13 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:17:41 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/29 18:29:56 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/10/30 17:31:07 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_makepos(int64_t a)
+int64_t		ft_makepos(int64_t a)
 {
 	if (a < 0)
 		return (-a);
