@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 15:02:08 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/30 18:24:40 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/03 01:25:12 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int			has_lead(t_format *format, int64_t num)
 			return (1);
 		else if ((format->type == 'x' || format->type == 'X') && num != 0)
 			return (2);
+		return (0);
 	}
 	else if (format->flag->plus || format->flag->space || ft_isneg(num))
 		return (1);
@@ -73,12 +74,13 @@ char		*get_lead(t_format *format, int64_t num)
 {
 	if (format->flag->pound)
 	{
-		if (format->type == 'o')
+		if (format->type == 'o' && num != 0)
 			return ("0");
 		else if (format->type == 'x' && num != 0)
 			return ("0x");
 		else if (format->type == 'X' && num != 0)
 			return ("0X");
+		return ("");
 	}
 	else if (format->flag->plus)
 		return (ft_isneg(num) ? "-" : "+");

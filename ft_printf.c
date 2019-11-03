@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 10:39:02 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/30 19:16:30 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/03 01:08:18 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,34 @@ int		dispatch(t_print *print, va_list args)
 	return (0);
 }
 
+int		print_char(t_format *format)
+{
+	if (ft_strlen(format->retstr) == 0)
+	{
+		ft_putchar((char)NULL);
+		return (1);
+	}
+	else if (format->retstr[0] == ' ' && format->retstr[ft_strlen(format->retstr) - 1] == ' ' && format->width > 1)
+	{
+		if (format->flag->minus)
+		{
+			ft_putchar((char)NULL);
+			ft_putstr(format->retstr);
+		}
+		else
+		{
+			ft_putstr(format->retstr);
+			ft_putchar((char)NULL);
+		}
+		return(ft_strlen(format->retstr) + 1);
+	}
+	else
+	{
+		ft_putstr(format->retstr);
+		return(ft_strlen(format->retstr));
+	}
+}
+
 int		print_out(t_print *print)
 {
 	t_format	*curr_fmt;
@@ -96,8 +124,13 @@ int		print_out(t_print *print)
 		}
 		else
 		{
-			ft_putstr(curr_fmt->retstr);
-			ret += ft_strlen(curr_fmt->retstr) - null_check(curr_fmt);
+			if (curr_fmt->type == 'c')
+				ret += print_char(curr_fmt);
+			else
+			{
+				ft_putstr(curr_fmt->retstr);
+				ret += ft_strlen(curr_fmt->retstr);
+			}
 			print->str += ft_strlen(curr_fmt->fmt);
 			curr_fmt = curr_fmt->next;
 		}

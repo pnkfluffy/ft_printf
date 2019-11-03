@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:18:27 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/25 14:18:36 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/02 23:30:54 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ char		*ft_push_to_str_front(char *str, char c)
 		i++;
 	}
 	ret[i + 1] = '\0';
-	free(str);
+	ft_strdel(&str);
 	return (ret);
 }

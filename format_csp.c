@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 13:09:09 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/30 17:18:37 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/01 22:39:02 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,10 @@ int		null_check(t_format *format)
 	int i;
 
 	i = 0;
-	if (format->type == 'c')
-	{
-		while (format->retstr[i] && format->retstr[i + 1])
-		{
-			if (format->retstr[i] == '^' && format->retstr[i + 1] == '@')
-				return (1);
-			i++;
-		}
-	}
+	if (ft_strlen(format->retstr) == 0 && format->precision == 0)
+		return (1);
+	else if (format->type == 's' && ft_strlen(format->retstr) == 0)
+		return (1);
 	return (0);
 }
 
@@ -36,14 +31,7 @@ int		format_c(t_format *format, va_list args)
 
 	c = NULL;
 	if (format->type != '%')
-	{
 		c = ft_fillstrnew(1, va_arg(args, int));
-		if (ft_strlen(c) == 0)
-		{
-			ft_strdel(&c);
-			c = ft_strdup("^@");
-		}
-	}
 	else
 		c = ft_fillstrnew(1, '%');
 	if (!(format->has_width))
