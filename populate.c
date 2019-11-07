@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:01:42 by jfelty            #+#    #+#             */
-/*   Updated: 2019/11/06 16:36:08 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/06 23:22:34 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,9 @@ int				populate_lenmod(t_format *curr, char *fmt)
 	int i;
 
 	i = 0;
-	if (fmt[0] == 'h' && fmt[1] == 'h')
+	if ((fmt[0] == 'h' && fmt[1] == 'h') || (fmt[0] == 'l' && fmt[1] == 'l'))
 	{
-		curr->lmod = 1;
-		i = 2;
-	}
-	else if (fmt[0] == 'l' && fmt[1] == 'l')
-	{
-		curr->lmod = 4;
+		curr->lmod = (fmt[0] == 'h') ? 1 : 4;
 		i = 2;
 	}
 	else if (fmt[0] == 'h' || fmt[0] == 'l' || fmt[0] == 'L')

@@ -6,7 +6,7 @@
 #    By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/14 10:38:32 by jfelty            #+#    #+#              #
-#    Updated: 2019/11/05 15:13:14 by jfelty           ###   ########.fr        #
+#    Updated: 2019/11/06 23:26:46 by jfelty           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,11 @@ CFLAGS = -I.
 SRC =	ft_printf.c \
 		populate.c \
 		dispatch.c \
+		print.c \
 		format_help.c \
 		format_help2.c \
 		format_cspf.c \
-		format_diouxX.c
+		format_diouxx.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 13:37:30 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/30 17:22:13 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/06 23:34:33 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_ull_itoa_base(uint64_t n, int base, int return_upper)
 {
 	char		*str;
 	uint64_t	ll_base;
- 	int			i;
+	int			i;
 	int			length;
 
 	ll_base = (uint64_t)base;

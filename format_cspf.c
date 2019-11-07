@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 13:09:09 by jfelty            #+#    #+#             */
-/*   Updated: 2019/11/06 21:33:11 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/06 23:14:54 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int		format_p(t_format *fmt, va_list args)
 	uint64_t	num;
 	char		*ret;
 	char		*pad;
+	char		*p;
 	int			chlen;
 
+	p = NULL;
 	num = va_arg(args, uint64_t);
 	ret = (fmt->prec == 0 && num == 0) ? ft_strnew(0) : \
 	ft_ull_itoa_base(num, 16, 0);
@@ -64,8 +66,9 @@ int		format_p(t_format *fmt, va_list args)
 	pad = ft_fillstrnew(fmt->width - chlen - 2, ' ');
 	while ((int)ft_strlen(ret) < chlen && (int)ft_strlen(ret) < fmt->prec)
 		ret = ft_push_to_str_front(ret, '0');
-	fmt->retstr = join_pad(ft_strjoin("0x", ret), pad, fmt->flag->minus);
-	free_strings(&ret, &pad, NULL);
+	fmt->retstr = join_pad(\
+	p = ft_strjoin("0x", ret), pad, fmt->flag->minus);
+	free_strings(&ret, &pad, &p);
 	return (0);
 }
 
@@ -106,11 +109,8 @@ int		format_f(t_format *fmt, va_list args)
 	chlen += ft_strlen(first) + 1 + has_lead(fmt, num);
 	pad = ft_fillstrnew(fmt->width - chlen - has_lead(fmt, num), ' ');
 	second = get_decimal(num > 0 ? num : -num, fmt->prec);
-	if (has_lead(fmt, num))
-		fmt->retstr = ft_strjoin(get_lead(fmt, num), \
-		ft_strjoin(first, ft_strjoin(".", second)));
-	else
-		fmt->retstr = ft_strjoin(first, ft_strjoin(".", second));
+	first = f_help(fmt, num, &first, second);
+	fmt->retstr = join_pad(first, pad, fmt->flag->minus);
 	free_strings(&first, &second, &pad);
 	return (0);
 }
