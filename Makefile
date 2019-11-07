@@ -6,7 +6,7 @@
 #    By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/14 10:38:32 by jfelty            #+#    #+#              #
-#    Updated: 2019/11/01 19:24:27 by jfelty           ###   ########.fr        #
+#    Updated: 2019/11/05 15:13:14 by jfelty           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,15 @@ NAME = libftprintf.a
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -I .
+CFLAGS = -I.
 
 SRC =	ft_printf.c \
 		populate.c \
+		dispatch.c \
 		format_help.c \
-		format_csp.c \
-		format_diou.c
+		format_help2.c \
+		format_cspf.c \
+		format_diouxX.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:01:42 by jfelty            #+#    #+#             */
-/*   Updated: 2019/10/29 18:59:44 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/06 16:36:08 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void			initialize_values(t_format *curr)
 	curr->retstr = NULL;
 	curr->type = (char)NULL;
 	curr->has_width = -1;
-	curr->has_precision = -1;
+	curr->has_prec = -1;
 	curr->width = -1;
-	curr->precision = -1;
+	curr->prec = -1;
 	curr->lmod = 0;
 	curr->flag->minus = 0;
 	curr->flag->plus = 0;
@@ -93,10 +93,10 @@ void			populate_format(t_format *curr, char *fmt)
 		while (ft_isdigit(fmt[i]))
 			i++;
 	}
-	curr->has_precision = (fmt[i] == '.') ? 1 : 0;
-	if (curr->has_precision)
+	curr->has_prec = (fmt[i] == '.') ? 1 : 0;
+	if (curr->has_prec)
 	{
-		curr->precision = ft_isdigit(fmt[++i]) ? ft_atoi(&fmt[i]) : 0;
+		curr->prec = ft_isdigit(fmt[++i]) ? ft_atoi(&fmt[i]) : 0;
 		while (ft_isdigit(fmt[i]))
 			i++;
 	}
@@ -110,7 +110,8 @@ t_format		*fill_format(t_format *head, char *fmt)
 
 	if (!head)
 	{
-		if (!(head = ft_memalloc(sizeof(t_format))) || !(head->flag = ft_memalloc(sizeof(t_flag))))
+		if (!(head = ft_memalloc(sizeof(t_format))) || \
+		!(head->flag = ft_memalloc(sizeof(t_flag))))
 			return (NULL);
 		head->fmt = ft_strdup(fmt);
 		populate_format(head, head->fmt);
@@ -120,23 +121,11 @@ t_format		*fill_format(t_format *head, char *fmt)
 		curr = head;
 		while (curr->next)
 			curr = curr->next;
-		if (!(curr->next = ft_memalloc(sizeof(t_format))) || !(curr->next->flag = ft_memalloc(sizeof(t_flag))))
+		if (!(curr->next = ft_memalloc(sizeof(t_format))) || \
+		!(curr->next->flag = ft_memalloc(sizeof(t_flag))))
 			return (NULL);
 		curr->next->fmt = ft_strdup(fmt);
 		populate_format(curr->next, curr->next->fmt);
 	}
 	return (head);
-}
-
-int				get_format(char *str, char **fmt)
-{
-	char	*end;
-
-	end = str;
-	while (!(ft_strchr(CONV, *end)))
-		end++;
-	end++;
-	*fmt = ft_strnew(end - str);
-	ft_strncpy(*fmt, str, end - str);
-	return (end - str + 1);
 }

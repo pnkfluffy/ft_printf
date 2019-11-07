@@ -6,24 +6,24 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 15:02:08 by jfelty            #+#    #+#             */
-/*   Updated: 2019/11/03 01:25:12 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/06 21:44:14 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*join_padding(char *str, char *padding, int ljustify)
+char			*join_pad(char *str, char *pad, int ljustify)
 {
 	char	*ret;
 
 	if (ljustify)
-		ret = ft_strjoin(str, padding);
+		ret = ft_strjoin(str, pad);
 	else
-		ret = ft_strjoin(padding, str);
+		ret = ft_strjoin(pad, str);
 	return (ret);
 }
 
-int64_t		get_arg_signed(int lmod, va_list args)
+int64_t			get_arg_signed(int lmod, va_list args)
 {
 	int64_t	num;
 
@@ -55,38 +55,41 @@ uint64_t		get_arg_unsigned(int lmod, va_list args)
 	return (num);
 }
 
-int			has_lead(t_format *format, int64_t num)
+int				has_lead(t_format *fmt, int64_t num)
 {
-	if (format->flag->pound)
+	if (fmt->flag->pound)
 	{
-		if (format->type == 'o')
+		if (fmt->type == 'o')
 			return (1);
-		else if ((format->type == 'x' || format->type == 'X') && num != 0)
+		else if ((fmt->type == 'x' || fmt->type == 'X') && num != 0)
 			return (2);
 		return (0);
 	}
-	else if (format->flag->plus || format->flag->space || ft_isneg(num))
+	else if (fmt->flag->plus || fmt->flag->space)
+		return (1);
+	else if (ft_isneg(num) && (fmt->type == 'i' || fmt->type == 'd' \
+	|| fmt->type == 'f'))
 		return (1);
 	return (0);
 }
 
-char		*get_lead(t_format *format, int64_t num)
+char			*get_lead(t_format *fmt, int64_t num)
 {
-	if (format->flag->pound)
+	if (fmt->flag->pound)
 	{
-		if (format->type == 'o' && num != 0)
+		if (fmt->type == 'o' && !(num == 0 && !fmt->has_prec))
 			return ("0");
-		else if (format->type == 'x' && num != 0)
+		else if (fmt->type == 'x' && num != 0)
 			return ("0x");
-		else if (format->type == 'X' && num != 0)
+		else if (fmt->type == 'X' && num != 0)
 			return ("0X");
 		return ("");
 	}
-	else if (format->flag->plus)
+	else if (fmt->flag->plus)
 		return (ft_isneg(num) ? "-" : "+");
 	else if (ft_isneg(num))
 		return ("-");
-	else if (format->flag->space)
+	else if (fmt->flag->space)
 		return (" ");
-	return ("ERROR");
+	return ("");
 }

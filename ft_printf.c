@@ -6,20 +6,17 @@
 /*   By: jfelty <jfelty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 10:39:02 by jfelty            #+#    #+#             */
-/*   Updated: 2019/11/03 01:08:18 by jfelty           ###   ########.fr       */
+/*   Updated: 2019/11/06 21:21:39 by jfelty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_print		*initialize(const char *str)
+void	initialize(t_print *print, const char *str)
 {
-	t_print	*print;
 	char	*curr_fmt;
 	char	*tmp;
 
-	if (!(print = ft_memalloc(sizeof(t_print))))
-		return (NULL);
 	curr_fmt = NULL;
 	print->fmts = NULL;
 	print->str = ft_strdup(str);
@@ -30,54 +27,6 @@ t_print		*initialize(const char *str)
 		print->fmts = fill_format(print->fmts, curr_fmt);
 		ft_strdel(&curr_fmt);
 	}
-	return (print);
-}
-
-//shrink to 1 function with dispatch
-int		get_choice(t_format *format)
-{
-	if (format->type == 'c' || format->type == '%')
-		return (0);
-	else if (format->type == 's')
-		return (1);
-	else if (format->type == 'p')
-		return (2);
-	else if (format->type == 'i' || format->type == 'd')
-		return (3);
-	else if (format->type == 'o')
-		return (4);
-	else if (format->type == 'u')
-		return (5);
-	else if (format->type == 'x' || format->type == 'X')
-		return (6);
-	else
-		return (-1);
-}
-
-int		dispatch(t_print *print, va_list args)
-{
-	t_format	*format;
-	int			choice;
-
-	jump_function	*jump_to[7] = {
-		format_c,
-		format_s,
-		format_p,
-		format_di,
-		format_o,
-		format_u,
-		format_xX
-	};
-
-	format = print->fmts;
-	while (format)
-	{
-		if ((choice = get_choice(format)) < 0)
-			return (format->type);
-		jump_to[choice](format, args);
-		format = format->next;
-	}
-	return (0);
 }
 
 int		print_char(t_format *format)
@@ -87,7 +36,9 @@ int		print_char(t_format *format)
 		ft_putchar((char)NULL);
 		return (1);
 	}
-	else if (format->retstr[0] == ' ' && format->retstr[ft_strlen(format->retstr) - 1] == ' ' && format->width > 1)
+	else if (format->retstr[0] == ' ' && \
+	format->retstr[ft_strlen(format->retstr) - 1] == ' ' && \
+	(ft_strlen(format->retstr) > 1 || format->width > 1))
 	{
 		if (format->flag->minus)
 		{
@@ -99,27 +50,32 @@ int		print_char(t_format *format)
 			ft_putstr(format->retstr);
 			ft_putchar((char)NULL);
 		}
-		return(ft_strlen(format->retstr) + 1);
+		return (ft_strlen(format->retstr) + 1);
 	}
-	else
-	{
-		ft_putstr(format->retstr);
-		return(ft_strlen(format->retstr));
-	}
+	ft_putstr(format->retstr);
+	return (ft_strlen(format->retstr));
+}
+
+int		print_str(char *str)
+{
+	ft_putstr(str);
+	return (ft_strlen(str));
 }
 
 int		print_out(t_print *print)
 {
 	t_format	*curr_fmt;
 	int			ret;
+	int			i;
 
 	ret = 0;
+	i = -1;
 	curr_fmt = print->fmts;
-	while (*print->str)
+	while (print->str[++i])
 	{
-		if (*print->str != '%')
+		if (print->str[i] != '%')
 		{
-			ft_putchar(*print->str);
+			ft_putchar(print->str[i]);
 			ret++;
 		}
 		else
@@ -127,48 +83,71 @@ int		print_out(t_print *print)
 			if (curr_fmt->type == 'c')
 				ret += print_char(curr_fmt);
 			else
-			{
-				ft_putstr(curr_fmt->retstr);
-				ret += ft_strlen(curr_fmt->retstr);
-			}
-			print->str += ft_strlen(curr_fmt->fmt);
+				ret += print_str(curr_fmt->retstr);
+			i += ft_strlen(curr_fmt->fmt);
 			curr_fmt = curr_fmt->next;
 		}
-		print->str++;
 	}
 	return (ret);
 }
 
-// void		print_params(t_format *curr)
-// {
-// 	while (curr)
-// 	{
-// 		printf("STRING: '%s'\nRETSTR: '%s'\nTYPE:\t%c\thas: %6d\thas: %6d\nFORMAT:\t\twidth: %4d\tprec: %5d\nFLAGS:\t\t-: %d   +: %d\t#: %8c\n\t\t0: %d   _: %d\tlenmod: %3d\n\n", \
-// 		curr->fmt, curr->retstr, curr->type, curr->has_width, curr->has_precision, curr->width, curr->precision, \
-// 		curr->flag->minus, curr->flag->plus, curr->flag->pound, curr->flag->zero, curr->flag->space, curr->lmod);
-// 		curr = curr->next;
-// 	}
-// }
+/*
+**	void		print_params(t_format *curr)
+**	{
+**		while (curr)
+**		{
+**			printf("STRING: '%s'\nRETSTR: '%s'\nTYPE:\t%c\thas: %6d\thas: \
+**			%6d\nFORMAT:\t\twidth: %4d\tprec: %5d\nFLAGS:\t\t-: %d   +: \
+**			%d\t#: %8c\n\t\t0: %d   _: %d\tlenmod: %3d\n\n", \
+**			curr->fmt, curr->retstr, curr->type, curr->has_width, \
+**			curr->has_prec, curr->width, curr->prec, \
+**			curr->flag->minus, curr->flag->plus, curr->flag->pound, \
+**			curr->flag->zero, curr->flag->space, curr->lmod);
+**			curr = curr->next;
+**		}
+**	}
+*/
 
-int			ft_printf(const char *str, ...)
+void	free_structs(t_print *print)
+{
+	t_format	*format;
+	t_format	*prev;
+
+	format = print->fmts;
+	ft_strdel(&print->str);
+	while (format)
+	{
+		if (format->retstr)
+			ft_strdel(&format->retstr);
+		ft_strdel(&format->fmt);
+		prev = format;
+		format = format->next;
+		free(prev->flag);
+		free(prev);
+	}
+	free(print);
+}
+
+int		ft_printf(const char *str, ...)
 {
 	va_list		args;
 	t_print		*print;
 	int			ret;
 
 	va_start(args, str);
-	print = initialize(str);
-
+	if (!(print = ft_memalloc(sizeof(t_print))))
+		return (-1);
+	initialize(print, str);
 	if ((ret = dispatch(print, args)) != 0)
 	{
 		ft_putstr("Error, %");
 		ft_putchar(ret);
 		ft_putstr(" is not a conversion type!\n");
+		free_structs(print);
 		return (-1);
 	}
-	// print_params(print->fmts);
-
 	ret = print_out(print);
 	va_end(args);
+	free_structs(print);
 	return (ret);
 }
